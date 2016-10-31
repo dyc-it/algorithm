@@ -10,6 +10,9 @@ def add_by_xor(x, y):
     # 解释:假设x为m位,y为n位(且m>=n),则x^y的最大位数不会超过m。
     # 如果循环一直不结束,那么x会不断地左移,直到左移到m的低n位全为0;此时如果进行x&y操作,结果一定为0,x=(x&y)<<1的结果也是0.
     # 此时x=0,循环结束
+
+    # TODO 上面的思路有问题,因为y的长度也是在变化的
+    # 如果某个位上有进位,那么result(也就是下次循环的y)这个位肯定为0,
     while (x != 0):
         i += 1
         print "loop %d" % i
@@ -30,6 +33,6 @@ def add_by_xor(x, y):
 
 
 if __name__ == '__main__':
-    x, y = 17, 3
+    x, y = 197, 1292
     result = add_by_xor(x, y)
     print result
