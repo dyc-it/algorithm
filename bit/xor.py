@@ -1,18 +1,24 @@
-#-*- coding:utf-8 –*-
+# -*- coding:utf-8 –*-
+
 
 def add_by_xor(x, y):
+    """
+    不使用加法, 计算两个数的和。非递归版本
+    主要思路:   x + y = x ^ y + (x & y) << 1
+    :param x: 被加数
+    :param y: 加数
+    :return: 两个数的和
+    """
     print "orgion:x=%s----%d" % (bin(x), x)
     print "orgion:y=%s----%d" % (bin(y), y)
     result = y
     i = 0
 
-    # 不能理解的地方在于,为什么x一定会等于0
-    # 解释:假设x为m位,y为n位(且m>=n),则x^y的最大位数不会超过m。
-    # 如果循环一直不结束,那么x会不断地左移,直到左移到m的低n位全为0;此时如果进行x&y操作,结果一定为0,x=(x&y)<<1的结果也是0.
-    # 此时x=0,循环结束
-
-    # TODO 上面的思路有问题,因为y的长度也是在变化的
-    # 如果某个位上有进位,那么result(也就是下次循环的y)这个位肯定为0,
+    # 在(x&y)<<1的结果中,如果某位为1,表示该位一定发生了进位。
+    # 假设x的位数为m,y的位数为n,那么x+y的位数不会超过num=max(m,n)+1
+    # 在第一次循环中,如果某一位发生进位,那么在下一次循环中,该位一定不会发生进位。
+    # 因为在本次循环中,如果发生进位,该位结果为0;在下一次循环中,进行&操作,肯定是不会进位了。
+    # 进位次数不会超过num次,所以最多循环num次,进位就是0了,循环终止
     while (x != 0):
         i += 1
         print "loop %d" % i
@@ -32,7 +38,23 @@ def add_by_xor(x, y):
     return result
 
 
+def add_by_xor_recur(x, y):
+    """
+    不使用加法, 计算两个数的和。通过xor实现加法的递归版本
+    :param x: 被加数
+    :param y: 加数
+    :return: 两个数的和
+    """
+    if x == 0:
+        return y
+    else:
+        sum = x ^ y
+        carry = (x & y) << 1
+        return add_by_xor(carry, sum)
+
+
 if __name__ == '__main__':
-    x, y = 197, 1292
-    result = add_by_xor(x, y)
-    print result
+    x, y = 8, 8
+    result1 = add_by_xor(x, y)
+    result2 = add_by_xor_recur(x, y)
+    print "result1=%d, result2=%d" % (result1, result2)
