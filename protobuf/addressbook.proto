@@ -1,0 +1,38 @@
+// .proto文件以package声明开始,这样可以防止不同项目间文件命名冲突。
+package tutorial;
+
+
+// 消息定义以"message"关键字开始
+message Person {
+    /*
+    *  消息修饰符,消息必须使用下面三个注解之一:
+    *  required: 这个字段的值必须提供
+    *  optional: 这个字段的值可以不设置
+    *  repeated: 重复的字段(可以理解为列表或者动态数组)
+    */
+
+    required string name = 1;
+    required int32 id =2;
+    optional string email = 3;
+
+    // 定义枚举类型
+    enum PhoneType {
+        MOBILE = 0;
+        HOME = 1;
+        WORK = 2;
+    }
+
+    // 可以在消息里面定义消息
+    message PhoneNumber {
+        required string number = 1;
+        optional PhoneType type = 2 [default = HOME];
+    }
+
+    repeated PhoneNumber phone = 4;
+}
+
+message AddressBook {
+    repeated Person person = 1;
+}
+
+
