@@ -8,7 +8,7 @@ class TestBinarySearchTree(unittest.TestCase):
     def setUp(self):
         size = 10
         self.random_list = random.sample(range(0, size), size)
-        self.random_list = [5, 3, 6, 1, 2, 4, 9, 0, 7, 8]
+        # self.random_list = [5, 3, 6, 1, 2, 4, 9, 0, 7, 8]
         print "random list generated: " + str(self.random_list)
 
         self.tree = BinarySearchTreeNode(None, None, None, None)
@@ -16,7 +16,7 @@ class TestBinarySearchTree(unittest.TestCase):
             self.tree.add(key, "data-"+str(key))
 
         self.existed_key = random.sample(self.random_list, 1)[0]
-        self.existed_key = 8
+        # self.existed_key = 5
         print "existed_key: " + str(self.existed_key)
         self.non_existed_key = size + 1
 
@@ -39,8 +39,16 @@ class TestBinarySearchTree(unittest.TestCase):
         self.assertEqual(non_existed_node, None)
 
     def test_delete(self):
-        self.tree.delete(self.existed_key)
-        print '\npre order'
+        print '\nbefore delete,pre order'
         self.tree.pre_order()
-        print '\nin order'
+        print '\nbefore delete,in order'
+        self.tree.in_order()
+
+        self.tree.delete(self.existed_key)
+        research_deleted_node = self.tree.search(self.existed_key)
+        self.assertEqual(research_deleted_node, None)
+
+        print '\nafter delete, pre order'
+        self.tree.pre_order()
+        print '\nafter delete, in order'
         self.tree.in_order()
