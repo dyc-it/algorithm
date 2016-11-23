@@ -1,6 +1,5 @@
 #!/usr/env/python
-
-from adt.Stack import Stack
+from stack import Stack
 
 
 class MinStack:
