@@ -39,16 +39,16 @@ class TestBinarySearchTree(unittest.TestCase):
         self.assertEqual(non_existed_node, None)
 
     def test_delete(self):
-        print '\nbefore delete,pre order'
+        print '\nbefore delete,pre order',
         self.tree.pre_order()
-        print '\nbefore delete,in order'
+        print '\nbefore delete,in order',
         self.tree.in_order()
 
         self.tree.delete(self.existed_key)
         research_deleted_node = self.tree.search(self.existed_key)
         self.assertEqual(research_deleted_node, None)
 
-        print '\nafter delete, pre order'
+        print '\nafter delete, pre order',
         self.tree.pre_order()
-        print '\nafter delete, in order'
+        print '\nafter delete, in order',
         self.tree.in_order()

@@ -1,25 +1,27 @@
-#!/usr/evn python
+# -*- coding:utf-8 -*-
+# !/usr/evn python
 from binary_tree import BinaryTreeNode
 
 
 class BinarySearchTreeNode(BinaryTreeNode):
+    """
+    Binary Search Tree Node
+    """
     def add(self, key, value):
-        if self.key is None:
+        if self.is_empty():  # if tree is empty, use the first node as root
             self.key = key
             self.value = value
-            pass
-        if key < self.key:
-            if self.left is not None:
-                self.left.add(key, value)
-            else:
-                node = BinarySearchTreeNode(key, value, None, None)
-                self.left = node
-        if key > self.key:
-            if self.right is not None:
-                self.right.add(key, value)
-            else:
-                node = BinarySearchTreeNode(key, value, None, None)
-                self.right = node
+        else:
+            if key < self.key:  # put the little node on the left
+                if self.left:
+                    self.left.add(key, value)
+                else:
+                    self.left = BinarySearchTreeNode(key, value, None, None)
+            if key > self.key:  # put the great node on the right
+                if self.right:
+                    self.right.add(key, value)
+                else:
+                    self.right = BinarySearchTreeNode(key, value, None, None)
 
     def search(self, key):
         if key == self.key:
@@ -32,20 +34,14 @@ class BinarySearchTreeNode(BinaryTreeNode):
             return None
 
     def min(self):
-        if self.left is None:
-            return self
-        else:
-            return self.left.min()
+        # if self has no left child, then it's the minimum node
+        return self.left.min() if self.left else self
 
     def max(self):
-        if self.right is None:
-            return self
-        else:
-            return self.right.max()
+        # if self has no right child, then it's the maximum node
+        return self.right.max() if self.right else self
 
     def delete(self, key):
-        if not self:
-            return None
         if key > self.key:
             self.right = self.right.delete(key)
         elif key < self.key:

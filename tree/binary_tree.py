@@ -10,6 +10,10 @@ class BinaryTreeNode:
         self.left = left
         self.right = right
 
+    def is_empty(self):
+        # if self.key is None, we consider the tree is empty
+        return self.key is None
+
     def pre_order(self):
         if self is not None:
             print self.key,
