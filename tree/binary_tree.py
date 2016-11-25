@@ -1,4 +1,5 @@
-#!/usr/evn python
+# -*- coding:utf-8 -*-
+# !/usr/evn python
 from queue.Queue import Queue
 from stack.stack import Stack
 
@@ -38,6 +39,10 @@ class BinaryTreeNode:
                 self.right.post_order()
             print self.key,
 
+    # 传入的是self,为什么执行完这个方法后,tree不为None.
+    # 原因:Python中给self变量传递的是一个对象的地址(A1)。
+    # 改变self变量本身(比如:sefl=A2)的值不会改变原对象(A1)的数据结构。
+    # 但是如果使用原对象的引用,比如self.key=value,就会对原对象(A1)作出改变。
     def level_order(self):
         level_order_list = []
         q = Queue()
