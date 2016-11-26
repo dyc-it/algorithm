@@ -87,8 +87,9 @@ class BinaryTreeNode:
 
         while not s.is_empty():
             current_node = s.top()
-            if (not current_node.left and not current_node.right ) or \
-                    (pre_node and (pre_node.key == current_node.left.key or pre_node.key == current_node.right.key)):
+            if (not current_node.left and not current_node.right) or \
+                    (pre_node and ((current_node.left and pre_node.key == current_node.left.key)
+                                   or (current_node.right and pre_node.key == current_node.right.key))):
                 post_order_list.append(current_node)
                 s.pop()
                 pre_node = current_node
@@ -99,10 +100,20 @@ class BinaryTreeNode:
                     s.push(current_node.left)
         return post_order_list
 
+    def height(self):
+        """
+        get the height of tree, suppose the height of root node is 1
+        :return: the height of tree
+        """
+        left_child_height = self.left.height() if self.left else 0
+        right_child_height = self.right.height() if self.right else 0
+        return 0 if not self else (max(left_child_height, right_child_height) + 1)
+
 
 if __name__ == '__main__':
+    node_4 = BinaryTreeNode(4, None, None, None)
+    node_3 = BinaryTreeNode(3, None, node_4, None)
     node_2 = BinaryTreeNode(2, None, None, None)
-    node_3 = BinaryTreeNode(3, None, None, None)
     tree = BinaryTreeNode(1, None, node_2, node_3)
     print 'pre order'
     tree.pre_order()
@@ -133,6 +144,4 @@ if __name__ == '__main__':
     for node in level_order_list:
         print node.key,
 
-
-
-
+    print '\nthe height of tree is: %d' % tree.height()
