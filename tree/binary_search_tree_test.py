@@ -15,6 +15,9 @@ class TestBinarySearchTree(unittest.TestCase):
         for key in self.random_list:
             self.tree.add(key, "data-"+str(key))
 
+        print 'height of tree is: %d' % self.tree.height()
+        print 'leaf count of tree is: %d' % self.tree.leaf_count()
+
         self.existed_key = random.sample(self.random_list, 1)[0]
         # self.existed_key = 5
         print "existed_key: " + str(self.existed_key)

@@ -114,6 +114,16 @@ class BinaryTreeNode:
         right_child_height = self.right.height() if self.right else 0
         return 0 if not self else (max(left_child_height, right_child_height) + 1)
 
+    def leaf_count(self):
+        if self is None:
+            return 0
+        elif self.left is None and self.right is None:
+            return 1
+        else:
+            left_child_leaf = self.left.leaf_count() if self.left else 0
+            right_child_leaf = self.right.leaf_count() if self.right else 0
+            return left_child_leaf + right_child_leaf
+
 
 if __name__ == '__main__':
     node_4 = BinaryTreeNode(4, None, None, None)
@@ -150,3 +160,4 @@ if __name__ == '__main__':
         print node.key,
 
     print '\nthe height of tree is: %d' % tree.height()
+    print 'the leaf count of tree is: %d' % tree.leaf_count()
